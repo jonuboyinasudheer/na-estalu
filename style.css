@@ -1,0 +1,645 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f8f5f0;
+    color: #2d2525;
+}
+
+/* Navigation Bar */
+
+.navbar {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    background: white;
+    border-bottom: 1px solid #e5ded8;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #2d2525;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+.nav-links a:hover {
+    color: #8b5e5e;
+}
+
+/* Welcome Section */
+
+.hero {
+    text-align: center;
+    padding: 150px 20px;
+}
+
+.hero h1 {
+    font-size: 58px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    color: #6b5d5d;
+}
+/* Featured Story */
+
+.featured-story {
+    max-width: 900px;
+    margin: 40px auto 100px;
+    padding: 70px 40px;
+    text-align: center;
+    background: white;
+    border: 1px solid #e5ded8;
+    border-radius: 12px;
+}
+
+.section-label {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #8b5e5e;
+    margin-bottom: 20px;
+}
+
+.featured-story h2 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.story-description {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    color: #6b5d5d;
+}
+
+.featured-story button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 5px;
+    background: #2d2525;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.featured-story button:hover {
+    background: #8b5e5e;
+}
+/* Weekly Love Story */
+
+.love-story {
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.love-story h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.chapter-card {
+    max-width: 700px;
+    margin: 40px auto 0;
+    padding: 45px;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e5ded8;
+    text-align: left;
+}
+
+.chapter-card span {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #8b5e5e;
+}
+
+.chapter-card h3 {
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+.chapter-card p {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    color: #6b5d5d;
+    margin-bottom: 25px;
+}
+
+.chapter-card button {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 5px;
+    background: #2d2525;
+    color: white;
+    cursor: pointer;
+}
+
+.chapter-card button:hover {
+    background: #8b5e5e;
+}
+/* Sunday Story */
+
+.sunday-story {
+    padding: 90px 20px;
+    text-align: center;
+    background: #eee8e1;
+}
+
+.sunday-story h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.sunday-card {
+    max-width: 700px;
+    margin: 40px auto 0;
+    padding: 50px;
+    background: #f8f5f0;
+    border-radius: 12px;
+}
+
+.sunday-card h3 {
+    font-size: 30px;
+    margin-bottom: 18px;
+}
+
+.sunday-card p {
+    font-family: Arial, sans-serif;
+    line-height: 1.7;
+    color: #6b5d5d;
+    margin-bottom: 25px;
+}
+
+.sunday-card button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    background: #2d2525;
+    color: white;
+    cursor: pointer;
+}
+
+.sunday-card button:hover {
+    background: #8b5e5e;
+}
+/* Footer */
+
+.footer {
+    padding: 60px 20px 30px;
+    background: #2d2525;
+    color: white;
+    text-align: center;
+}
+
+.footer h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.footer > p {
+    font-family: Arial, sans-serif;
+    color: #d8d0ca;
+}
+
+.footer-links {
+    margin: 25px 0;
+}
+
+.footer-links a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer .copyright {
+    margin-top: 30px;
+    font-size: 13px;
+}
+/* Story Page */
+
+.story-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 25px;
+}
+
+.story-page .section-label {
+    text-align: center;
+}
+
+.story-page h1 {
+    text-align: center;
+    font-size: 52px;
+    line-height: 1.2;
+    margin: 20px 0;
+}
+
+.story-date {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #8a7b75;
+    font-size: 14px;
+    margin-bottom: 70px;
+}
+
+.story-content {
+    font-size: 20px;
+    line-height: 2;
+    color: #3d3432;
+}
+
+.story-content p {
+    margin-bottom: 30px;
+}
+
+.chapter-navigation {
+    margin-top: 80px;
+    padding-top: 25px;
+    border-top: 1px solid #ddd4ce;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.chapter-navigation a {
+    color: #6d4c4c;
+    text-decoration: none;
+}
+
+.chapter-navigation a:hover {
+    text-decoration: underline;
+}
+/* Stories Page */
+
+.stories-header {
+    text-align: center;
+    padding: 100px 20px 60px;
+}
+
+.stories-header h1 {
+    font-size: 56px;
+    margin: 15px 0;
+}
+
+.stories-header p:last-child {
+    font-family: Arial, sans-serif;
+    color: #6b5d5d;
+    font-size: 18px;
+}
+
+.stories-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 25px 100px;
+}
+
+.stories-section h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 45px;
+}
+
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.story-card {
+    background: white;
+    padding: 35px;
+    border: 1px solid #e5ded8;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(45, 37, 37, 0.08);
+}
+
+.story-type {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #8b5e5e;
+}
+
+.story-card h3 {
+    font-size: 26px;
+    margin: 18px 0;
+}
+
+.story-card p {
+    font-family: Arial, sans-serif;
+    color: #6b5d5d;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.story-card a {
+    font-family: Arial, sans-serif;
+    color: #6d4c4c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.story-card a:hover {
+    text-decoration: underline;
+}
+/* Mobile Responsive Design */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 0 20px;
+        height: auto;
+        min-height: 70px;
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .nav-links {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 100px 20px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .featured-story {
+        margin: 20px;
+        padding: 50px 25px;
+    }
+
+    .featured-story h2 {
+        font-size: 32px;
+    }
+
+    .love-story h2,
+    .sunday-story h2 {
+        font-size: 32px;
+    }
+
+    .chapter-card,
+    .sunday-card {
+        padding: 30px 25px;
+    }
+
+    .stories-header h1 {
+        font-size: 44px;
+    }
+
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-page {
+        padding: 70px 20px;
+    }
+
+    .story-page h1 {
+        font-size: 38px;
+    }
+
+    .story-content {
+        font-size: 18px;
+        line-height: 1.8;
+    }
+
+    .chapter-navigation {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-links a {
+        margin: 0 8px;
+    }
+}
+/* Story Cover */
+
+.story-cover {
+    height: 260px;
+    margin-bottom: 35px;
+    border-radius: 10px;
+    background:
+        linear-gradient(
+            rgba(45, 37, 37, 0.35),
+            rgba(45, 37, 37, 0.55)
+        ),
+        url("https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80")
+        center / cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-cover span {
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+/* Featured Story Read Button */
+
+.read-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 5px;
+    background: #2d2525;
+    color: white;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.read-button:hover {
+    background: #8b5e5e;
+}
+/* About Page */
+
+.about-section {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px 25px 100px;
+}
+
+.about-content {
+    background: white;
+    padding: 45px;
+    margin-bottom: 25px;
+    border: 1px solid #e5ded8;
+    border-radius: 12px;
+}
+
+.about-content h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    font-family: Arial, sans-serif;
+    color: #6b5d5d;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+/* Homepage Section Improvements */
+
+.featured-story,
+.love-story,
+.sunday-story {
+    max-width: 1000px;
+    margin: 70px auto;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.featured-story {
+    background: #f7f2ee;
+    border-radius: 14px;
+}
+
+.love-story {
+    background: #ffffff;
+}
+
+.sunday-story {
+    background: #f7f2ee;
+    border-radius: 14px;
+}
+
+.featured-story h2,
+.love-story h2,
+.sunday-story h2 {
+    font-size: 38px;
+    margin: 15px 0 20px;
+}
+
+.story-description {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    font-family: Arial, sans-serif;
+    color: #6b5d5d;
+    line-height: 1.8;
+}
+
+.chapter-card,
+.sunday-card {
+    max-width: 600px;
+    margin: 40px auto 0;
+    padding: 35px;
+    background: white;
+    border: 1px solid #e5ded8;
+    border-radius: 12px;
+}
+
+.chapter-card span,
+.sunday-card span {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #8b5e5e;
+}
+
+.chapter-card h3,
+.sunday-card h3 {
+    font-size: 27px;
+    margin: 15px 0;
+}
+
+.chapter-card p,
+.sunday-card p {
+    font-family: Arial, sans-serif;
+    color: #6b5d5d;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+/* Na Estalu Brand */
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    border-bottom: 1px solid #e5ded8;
+}
+
+.nav-links a {
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #8b5e5e;
+}
+.logo {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    border-bottom: 1px solid #e5ded8;
+}
+
+.nav-links a {
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #8b5e5e;
+}
