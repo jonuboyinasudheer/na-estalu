@@ -248,6 +248,9 @@
         import {
             initializeApp
         } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import {
+    getAnalytics
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 
 
         import {
@@ -288,10 +291,13 @@
 
 
         const app =
-            initializeApp(firebaseConfig);
+    initializeApp(firebaseConfig);
 
-        const db =
-            getFirestore(app);
+const db =
+    getFirestore(app);
+
+const analytics =
+    getAnalytics(app);
 
 
         // =========================
