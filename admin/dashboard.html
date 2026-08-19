@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Na Estalu - Dashboard</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <header class="dashboard-header">
+            <div>
+                <h1>Na Estalu</h1>
+                <p>Admin Dashboard</p>
+            </div>
+
+            <button id="logoutBtn">Logout</button>
+        </header>
+
+        <main class="dashboard-content">
+
+            <div class="welcome">
+                <h2>Welcome, Admin 👋</h2>
+                <p>Manage your Na Estalu stories from here.</p>
+            </div>
+
+            <div class="dashboard-cards">
+
+                <a href="add-story.html" class="dashboard-card">
+                    <h3>✍️ Add Story</h3>
+                    <p>Publish a new story.</p>
+                </a>
+
+                <a href="manage-stories.html" class="dashboard-card">
+    <h3>📚 Manage Stories</h3>
+    <p>Edit or delete your stories.</p>
+</a>
+
+                <a href="stories.html" class="dashboard-card">
+                    <h3>❤️ Love Stories</h3>
+                    <p>Manage your love stories.</p>
+                </a>
+
+                <a href="../index.html" class="dashboard-card">
+                    <h3>🌐 View Website</h3>
+                    <p>Open the main Na Estalu website.</p>
+                </a>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script type="module">
+
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+        authDomain: "na-estalu.firebaseapp.com",
+        projectId: "na-estalu",
+        storageBucket: "na-estalu.firebasestorage.app",
+        messagingSenderId: "790933220074",
+        appId: "1:790933220074:web:6768a0a86547e786a78593",
+        measurementId: "G-G94D1ZGPKK"
+
+    };
+
+
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+        }
+
+    });
+
+
+    document
+        .getElementById("logoutBtn")
+        .addEventListener("click", async function () {
+
+            await signOut(auth);
+
+            window.location.href = "index.html";
+
+        });
+
+</script>
+
+</body>
+
+</html>

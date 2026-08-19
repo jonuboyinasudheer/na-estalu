@@ -2,15 +2,23 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Love Stories | Na Estalu</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
+
 <body>
+
+
+    <!-- Navigation -->
 
     <nav class="navbar">
 
@@ -19,14 +27,37 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="stories.html">Stories</a></li>
-            <li><a href="love-stories.html">Love Stories</a></li>
-            <li><a href="#">About</a></li>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="stories.html">
+                    Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="love-stories.html">
+                    Love Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
         </ul>
 
     </nav>
 
+
+    <!-- Love Stories Header -->
 
     <section class="stories-header">
 
@@ -39,89 +70,37 @@
         </h1>
 
         <p>
-            Follow a love story, one chapter at a time.
+            Follow beautiful stories of love,
+            one chapter at a time.
         </p>
 
     </section>
 
 
+    <!-- Love Stories -->
+
     <section class="stories-section">
 
         <h2>
-            Our Story Begins Here
+            Our Love Stories
         </h2>
 
-        <div class="stories-grid">
 
-            <div class="story-card">
+        <div
+            class="stories-grid"
+            id="loveStoriesContainer"
+        >
 
-                <span class="story-type">
-                    CHAPTER 01
-                </span>
-
-                <h3>
-                    The First Meeting
-                </h3>
-
-                <p>
-                    Sometimes the most beautiful stories
-                    begin with an unexpected meeting.
-                </p>
-
-                <a href="story.html">
-                    Read Chapter 01 →
-                </a>
-
-            </div>
-
-
-            <div class="story-card">
-
-                <span class="story-type">
-                    CHAPTER 02
-                </span>
-
-                <h3>
-                    The Moment We Met
-                </h3>
-
-                <p>
-                    One ordinary day becomes the beginning
-                    of something unforgettable.
-                </p>
-
-                <a href="chapter-02.html">
-                    Read Chapter 02 →
-                </a>
-
-            </div>
-
-
-            <div class="story-card">
-
-                <span class="story-type">
-                    CHAPTER 03
-                </span>
-
-                <h3>
-                    Coming Soon
-                </h3>
-
-                <p>
-                    The next chapter of their journey
-                    will be published next week.
-                </p>
-
-                <span class="coming-soon">
-                    Coming Soon
-                </span>
-
-            </div>
+            <p>
+                Loading love stories...
+            </p>
 
         </div>
 
     </section>
 
+
+    <!-- Footer -->
 
     <footer class="footer">
 
@@ -138,6 +117,183 @@
         </p>
 
     </footer>
+
+
+    <!-- Firebase -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            where,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+
+            authDomain:
+                "na-estalu.firebaseapp.com",
+
+            projectId:
+                "na-estalu",
+
+            storageBucket:
+                "na-estalu.firebasestorage.app",
+
+            messagingSenderId:
+                "790933220074",
+
+            appId:
+                "1:790933220074:web:6768a0a86547e786a78593",
+
+            measurementId:
+                "G-G94D1ZGPKK"
+
+        };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        const db =
+            getFirestore(app);
+
+
+        const container =
+            document.getElementById(
+                "loveStoriesContainer"
+            );
+
+
+        async function loadLoveStories() {
+
+            try {
+
+                const storiesQuery = query(
+
+                    collection(db, "stories"),
+
+                    where(
+                        "category",
+                        "==",
+                        "love-stories"
+                    ),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    )
+
+                );
+
+
+                const snapshot =
+                    await getDocs(storiesQuery);
+
+
+                container.innerHTML = "";
+
+
+                if (snapshot.empty) {
+
+                    container.innerHTML = `
+
+                        <p>
+                            No love stories published yet.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                snapshot.forEach((storyDocument) => {
+
+                    const story =
+                        storyDocument.data();
+
+
+                    const card =
+                        document.createElement("div");
+
+
+                    card.className =
+                        "story-card";
+
+
+                    const preview =
+                        story.content
+                            ? story.content.substring(0, 140) + "..."
+                            : "Read this beautiful love story on Na Estalu.";
+
+
+                    card.innerHTML = `
+
+                        <span class="story-type">
+                            LOVE STORY
+                        </span>
+
+                        <h3>
+                            ${story.title || "Untitled Story"}
+                        </h3>
+
+                        <p>
+                            ${preview}
+                        </p>
+
+                        <a
+                            href="story.html?id=${storyDocument.id}"
+                        >
+                            Read Story →
+                        </a>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                });
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading love stories:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <p>
+                        Unable to load love stories.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        loadLoveStories();
+
+    </script>
+
 
 </body>
 

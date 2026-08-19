@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Na Estalu - Edit Story</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>Na Estalu</h1>
+
+                <p>Edit Story</p>
+
+            </div>
+
+            <a href="manage-stories.html"
+               class="back-btn">
+
+                ← Manage Stories
+
+            </a>
+
+        </header>
+
+
+        <main class="dashboard-content">
+
+            <div class="story-form-box">
+
+                <h2>Edit Story</h2>
+
+                <p class="form-description">
+                    Update your story details below.
+                </p>
+
+
+                <form id="editStoryForm">
+
+                    <label for="storyTitle">
+                        Story Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="storyTitle"
+                        required
+                    >
+
+
+                    <label for="author">
+                        Author
+                    </label>
+
+                    <input
+                        type="text"
+                        id="author"
+                        required
+                    >
+
+
+                    <label for="category">
+                        Category
+                    </label>
+
+                    <select id="category" required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        <option value="stories">
+                            Stories
+                        </option>
+
+                        <option value="love-stories">
+                            Love Stories
+                        </option>
+
+                        <option value="sunday-stories">
+                            Sunday Stories
+                        </option>
+
+                    </select>
+
+
+                    <label for="storyImage">
+                        Story Image URL
+                    </label>
+
+                    <input
+                        type="text"
+                        id="storyImage"
+                    >
+
+
+                    <label for="storyContent">
+                        Story Content
+                    </label>
+
+                    <textarea
+                        id="storyContent"
+                        rows="15"
+                        required
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="publish-btn"
+                    >
+                        Save Changes
+                    </button>
+
+                </form>
+
+
+                <p id="storyMessage"></p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script
+        type="module" src="edit-story.js"></script>
+        <script type="module">
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    const auth = getAuth();
+
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+        }
+
+    });
+
+</script>
+
+</body>
+
+</html>

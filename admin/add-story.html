@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Na Estalu - Add Story</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+
+<body>
+
+    <div class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>Na Estalu</h1>
+
+                <p>Add New Story</p>
+
+            </div>
+
+
+            <a href="dashboard.html"
+               class="back-btn">
+
+                ← Dashboard
+
+            </a>
+
+        </header>
+
+
+        <main class="dashboard-content">
+
+
+            <div class="story-form-box">
+
+
+                <h2>Publish a New Story</h2>
+
+
+                <p class="form-description">
+
+                    Add your story details below.
+
+                </p>
+
+
+                <form id="storyForm">
+
+
+                    <label for="storyTitle">
+
+                        Story Title
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="storyTitle"
+                        placeholder="Enter story title"
+                        required
+                    >
+
+
+                    <label for="author">
+
+                        Author
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="author"
+                        placeholder="Enter author name"
+                        required
+                    >
+
+
+                    <label for="category">
+
+                        Category
+
+                    </label>
+
+<select id="category" required>
+
+    <option value="">
+        Select Category
+    </option>
+
+    <option value="stories">
+        Stories
+    </option>
+
+    <option value="love-stories">
+        Love Stories
+    </option>
+
+    <option value="sunday-stories">
+        Sunday Stories
+    </option>
+
+</select>
+
+
+                    <label for="storyImage">
+
+                        Story Image URL
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="storyImage"
+                        placeholder="Paste image URL"
+                    >
+
+
+                    <label for="storyContent">
+
+                        Story Content
+
+                    </label>
+
+
+                    <textarea
+                        id="storyContent"
+                        rows="15"
+                        placeholder="Write your story here..."
+                        required
+                    ></textarea>
+
+
+                    <button
+                        type="submit"
+                        class="publish-btn"
+                    >
+
+                        Publish Story
+
+                    </button>
+
+
+                </form>
+
+
+                <p id="storyMessage"></p>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+    
+<script type="module" src="firebase.js"></script><script type="module">
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+    const auth = getAuth();
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+            window.location.href = "index.html";
+        }
+
+    });
+
+</script>
+
+
+</body>
+</html>

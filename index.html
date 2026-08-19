@@ -2,17 +2,24 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Na Estalu</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
     <!-- Navigation Bar -->
+
     <nav class="navbar">
 
         <div class="logo">
@@ -20,19 +27,47 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="stories.html">Stories</a></li>
-            <li><a href="love-stories.html">Love Stories</a></li>
-            <li><a href="about.html">About</a></li>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="stories.html">
+                    Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="love-stories.html">
+                    Love Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
         </ul>
+
+        <a href="stories.html" class="latest-btn">
+            Latest Story
+        </a>
 
     </nav>
 
 
     <!-- Welcome Section -->
+
     <section class="hero">
 
-        <h1>Welcome to Na Estalu</h1>
+        <h1>
+            Welcome to Na Estalu
+        </h1>
 
         <p>
             Stories that stay with you.
@@ -42,26 +77,37 @@
 
 
     <!-- Featured Story -->
+
     <section class="featured-story">
 
         <div class="story-cover">
-            <span>FEATURED STORY</span>
+
+            <span>
+                FEATURED STORY
+            </span>
+
         </div>
 
         <p class="section-label">
             FEATURED STORY
         </p>
 
-        <h2>
-            The Story We Never Finished
+        <h2 id="featuredTitle">
+            Loading story...
         </h2>
 
-        <p class="story-description">
-            Some stories begin unexpectedly, stay in our hearts,
-            and continue long after the last page.
+        <p
+            class="story-description"
+            id="featuredDescription"
+        >
+            Loading...
         </p>
 
-        <a href="story.html" class="read-button">
+        <a
+            href="#"
+            class="read-button"
+            id="featuredLink"
+        >
             Read Story
         </a>
 
@@ -69,6 +115,7 @@
 
 
     <!-- Weekly Love Story -->
+
     <section class="love-story">
 
         <p class="section-label">
@@ -76,32 +123,38 @@
         </p>
 
         <h2>
-            Our Story Begins Here
+            Our Love Stories
         </h2>
 
         <p class="story-description">
-            A new chapter every week.
-            Follow the journey, the emotions, and the moments
-            that bring two hearts closer.
+
+            Follow the journey, the emotions,
+            and the moments that bring two hearts closer.
+
         </p>
 
-        <div class="chapter-card">
+        <div
+            class="chapter-card"
+            id="loveStoryCard"
+        >
 
             <span>
-                CHAPTER 01
+                LOVE STORY
             </span>
 
             <h3>
-                The First Meeting
+                Loading...
             </h3>
 
             <p>
-                Sometimes the most beautiful stories begin
-                with a simple moment we never expected.
+                Loading love story...
             </p>
 
-            <a href="story.html" class="read-button">
-                Read Chapter 01
+            <a
+                href="#"
+                class="read-button"
+            >
+                Read Story
             </a>
 
         </div>
@@ -110,6 +163,7 @@
 
 
     <!-- Sunday Story -->
+
     <section class="sunday-story">
 
         <p class="section-label">
@@ -121,22 +175,29 @@
         </h2>
 
         <p class="story-description">
+
             Every Sunday, discover a different story,
             written to make you pause, feel, and remember.
+
         </p>
 
-        <div class="sunday-card">
+        <div
+            class="sunday-card"
+            id="sundayStoryCard"
+        >
 
             <h3>
-                The Last Letter
+                Loading...
             </h3>
 
             <p>
-                A letter written years ago finds its way back
-                to the person it was always meant for.
+                Loading Sunday story...
             </p>
 
-            <a href="sunday-story.html" class="read-button">
+            <a
+                href="#"
+                class="read-button"
+            >
                 Read Sunday Story
             </a>
 
@@ -146,6 +207,7 @@
 
 
     <!-- Footer -->
+
     <footer class="footer">
 
         <h2>
@@ -158,11 +220,17 @@
 
         <div class="footer-links">
 
-            <a href="#">Instagram</a>
+            <a href="#">
+                Instagram
+            </a>
 
-            <a href="#">Facebook</a>
+            <a href="#">
+                Facebook
+            </a>
 
-            <a href="#">Contact</a>
+            <a href="#">
+                Contact
+            </a>
 
         </div>
 
@@ -173,7 +241,369 @@
     </footer>
 
 
-    <script src="script.js"></script>
+    <!-- Firebase -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            orderBy,
+            where,
+            limit
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+
+            authDomain:
+                "na-estalu.firebaseapp.com",
+
+            projectId:
+                "na-estalu",
+
+            storageBucket:
+                "na-estalu.firebasestorage.app",
+
+            messagingSenderId:
+                "790933220074",
+
+            appId:
+                "1:790933220074:web:6768a0a86547e786a78593",
+
+            measurementId:
+                "G-G94D1ZGPKK"
+
+        };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const db =
+            getFirestore(app);
+
+
+        // =========================
+        // FEATURED STORY
+        // =========================
+
+        async function loadFeaturedStory() {
+
+            try {
+
+                const storiesQuery = query(
+
+                    collection(db, "stories"),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    ),
+
+                    limit(1)
+
+                );
+
+                const snapshot =
+                    await getDocs(storiesQuery);
+
+
+                if (snapshot.empty) {
+
+                    return;
+
+                }
+
+
+                const storyDocument =
+                    snapshot.docs[0];
+
+                const story =
+                    storyDocument.data();
+
+
+                document.getElementById(
+                    "featuredTitle"
+                ).textContent =
+                    story.title || "Untitled Story";
+
+
+                document.getElementById(
+                    "featuredDescription"
+                ).textContent =
+                    story.content
+                        ? story.content.substring(0, 180) + "..."
+                        : "Read this beautiful story on Na Estalu.";
+
+
+                document.getElementById(
+                    "featuredLink"
+                ).href =
+                    `story.html?id=${storyDocument.id}`;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading featured story:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // =========================
+        // LOVE STORY
+        // =========================
+
+        async function loadLoveStory() {
+
+            try {
+
+                const loveQuery = query(
+
+                    collection(db, "stories"),
+
+                    where(
+                        "category",
+                        "==",
+                        "love-stories"
+                    ),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    ),
+
+                    limit(1)
+
+                );
+
+
+                const snapshot =
+                    await getDocs(loveQuery);
+
+
+                const card =
+                    document.getElementById(
+                        "loveStoryCard"
+                    );
+
+
+                if (snapshot.empty) {
+
+                    card.innerHTML = `
+
+                        <span>
+                            LOVE STORY
+                        </span>
+
+                        <h3>
+                            No Love Story Yet
+                        </h3>
+
+                        <p>
+                            A new love story will appear here soon.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                const storyDocument =
+                    snapshot.docs[0];
+
+                const story =
+                    storyDocument.data();
+
+
+                card.innerHTML = `
+
+                    <span>
+                        LOVE STORY
+                    </span>
+
+                    <h3>
+                        ${story.title || "Untitled Story"}
+                    </h3>
+
+                    <p>
+                        ${
+                            story.content
+                                ? story.content.substring(0, 140) + "..."
+                                : "Read this beautiful love story."
+                        }
+                    </p>
+
+                    <a
+                        href="story.html?id=${storyDocument.id}"
+                        class="read-button"
+                    >
+                        Read Story
+                    </a>
+
+                `;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading love story:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        // =========================
+        // SUNDAY STORY
+        // =========================
+
+        async function loadSundayStory() {
+
+            try {
+
+                const sundayQuery = query(
+
+                    collection(db, "stories"),
+
+                    where(
+                        "category",
+                        "==",
+                        "sunday-stories"
+                    ),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    ),
+
+                    limit(1)
+
+                );
+
+
+                const snapshot =
+                    await getDocs(sundayQuery);
+
+
+                const card =
+                    document.getElementById(
+                        "sundayStoryCard"
+                    );
+
+
+                if (snapshot.empty) {
+
+                    card.innerHTML = `
+
+                        <h3>
+                            No Sunday Story Yet
+                        </h3>
+
+                        <p>
+                            A new Sunday story will appear here soon.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                const storyDocument =
+                    snapshot.docs[0];
+
+                const story =
+                    storyDocument.data();
+
+
+                card.innerHTML = `
+
+                    <h3>
+                        ${story.title || "Untitled Story"}
+                    </h3>
+
+                    <p>
+                        ${
+                            story.content
+                                ? story.content.substring(0, 140) + "..."
+                                : "Read this beautiful Sunday story."
+                        }
+                    </p>
+
+                    <a
+                        href="story.html?id=${storyDocument.id}"
+                        class="read-button"
+                    >
+                        Read Sunday Story
+                    </a>
+
+                `;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading Sunday story:",
+                    error
+                );
+
+
+                const card =
+                    document.getElementById(
+                        "sundayStoryCard"
+                    );
+
+
+                card.innerHTML = `
+
+                    <h3>
+                        Unable to load Sunday Story
+                    </h3>
+
+                    <p>
+                        Please try again later.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        // =========================
+        // LOAD ALL
+        // =========================
+
+        loadFeaturedStory();
+
+        loadLoveStory();
+
+        loadSundayStory();
+
+    </script>
+
 
 </body>
 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Na Estalu - Manage Stories</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>Na Estalu</h1>
+
+                <p>Manage Stories</p>
+
+            </div>
+
+            <a href="dashboard.html"
+               class="back-btn">
+
+                ← Dashboard
+
+            </a>
+
+        </header>
+
+
+        <main class="dashboard-content">
+
+            <div class="welcome">
+
+                <h2>Your Stories 📚</h2>
+
+                <p>
+                    View and manage all stories published on Na Estalu.
+                </p>
+
+            </div>
+
+
+            <div id="manageStoriesContainer">
+
+                <p>Loading stories...</p>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script type="module" src="manage-stories.js"></script>
+<script type="module">
+
+    import {
+        getAuth,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    const auth = getAuth();
+
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href = "index.html";
+
+        }
+
+    });
+
+</script>
+</body>
+
+</html>

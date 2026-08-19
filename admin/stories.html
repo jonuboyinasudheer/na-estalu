@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Stories | Na Estalu</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+
+<body>
+
+
+    <div class="dashboard">
+
+
+        <!-- Header -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <h1>
+                    Na Estalu
+                </h1>
+
+                <p>
+                    Manage Stories
+                </p>
+
+            </div>
+
+
+            <button id="logoutBtn">
+                Logout
+            </button>
+
+        </header>
+
+
+        <!-- Content -->
+
+        <main class="dashboard-content">
+
+
+            <div class="welcome">
+
+                <h2>
+                    📚 Your Stories
+                </h2>
+
+                <p>
+                    Edit or delete stories from your website.
+                </p>
+
+            </div>
+
+
+            <!-- Back -->
+
+            <a
+                href="dashboard.html"
+                class="back-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+
+            <!-- Stories -->
+
+            <div
+                id="storiesContainer"
+                style="margin-top: 30px;"
+            >
+
+                <p>
+                    Loading stories...
+                </p>
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- Firebase -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            orderBy,
+            deleteDoc,
+            doc
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+
+            authDomain:
+                "na-estalu.firebaseapp.com",
+
+            projectId:
+                "na-estalu",
+
+            storageBucket:
+                "na-estalu.firebasestorage.app",
+
+            messagingSenderId:
+                "790933220074",
+
+            appId:
+                "1:790933220074:web:6768a0a86547e786a78593",
+
+            measurementId:
+                "G-G94D1ZGPKK"
+
+        };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        const db =
+            getFirestore(app);
+
+
+        const auth =
+            getAuth(app);
+
+
+        const container =
+            document.getElementById(
+                "storiesContainer"
+            );
+
+
+        // =========================
+        // AUTH CHECK
+        // =========================
+
+        onAuthStateChanged(
+            auth,
+            (user) => {
+
+                if (!user) {
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+                loadStories();
+
+            }
+        );
+
+
+        // =========================
+        // LOAD STORIES
+        // =========================
+
+        async function loadStories() {
+
+            try {
+
+                const storiesQuery =
+                    query(
+
+                        collection(
+                            db,
+                            "stories"
+                        ),
+
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+
+                    );
+
+
+                const snapshot =
+                    await getDocs(
+                        storiesQuery
+                    );
+
+
+                container.innerHTML = "";
+
+
+                if (snapshot.empty) {
+
+                    container.innerHTML = `
+
+                        <div class="story-form-box">
+
+                            <h2>
+                                No Stories Yet
+                            </h2>
+
+                            <p>
+                                Add your first story from the dashboard.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                snapshot.forEach(
+                    (storyDocument) => {
+
+                        const story =
+                            storyDocument.data();
+
+
+                        let category =
+                            story.category ||
+                            "story";
+
+
+                        if (
+                            category ===
+                            "love-stories"
+                        ) {
+
+                            category =
+                                "LOVE STORY";
+
+                        } else if (
+                            category ===
+                            "sunday-stories"
+                        ) {
+
+                            category =
+                                "SUNDAY STORY";
+
+                        } else {
+
+                            category =
+                                "STORY";
+
+                        }
+
+
+                        const card =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        card.className =
+                            "story-form-box";
+
+
+                        card.style.marginBottom =
+                            "20px";
+
+
+                        card.innerHTML = `
+
+                            <p class="section-label">
+                                ${category}
+                            </p>
+
+                            <h2>
+                                ${story.title || "Untitled Story"}
+                            </h2>
+
+                            <p class="form-description">
+                                ${
+                                    story.author
+                                        ? "Written by " + story.author
+                                        : "Na Estalu"
+                                }
+                            </p>
+
+                            <p>
+                                ${
+                                    story.content
+                                        ? story.content.substring(0, 180) + "..."
+                                        : "No content"
+                                }
+                            </p>
+
+                            <div
+                                style="
+                                    margin-top:20px;
+                                    display:flex;
+                                    gap:10px;
+                                    flex-wrap:wrap;
+                                "
+                            >
+
+                                <a
+                                    href="edit-story.html?id=${storyDocument.id}"
+                                    class="back-btn"
+                                >
+                                    ✏️ Edit
+                                </a>
+
+                                <button
+                                    class="publish-btn delete-btn"
+                                    data-id="${storyDocument.id}"
+                                >
+                                    🗑️ Delete
+                                </button>
+
+                            </div>
+
+                        `;
+
+
+                        container.appendChild(
+                            card
+                        );
+
+                    }
+                );
+
+
+                // DELETE BUTTONS
+
+                document
+                    .querySelectorAll(
+                        ".delete-btn"
+                    )
+                    .forEach(
+                        (button) => {
+
+                            button.addEventListener(
+                                "click",
+                                async () => {
+
+                                    const storyId =
+                                        button.dataset.id;
+
+
+                                    const confirmDelete =
+                                        confirm(
+                                            "Are you sure you want to delete this story?"
+                                        );
+
+
+                                    if (
+                                        !confirmDelete
+                                    ) {
+
+                                        return;
+
+                                    }
+
+
+                                    try {
+
+                                        await deleteDoc(
+                                            doc(
+                                                db,
+                                                "stories",
+                                                storyId
+                                            )
+                                        );
+
+
+                                        alert(
+                                            "Story deleted successfully."
+                                        );
+
+
+                                        loadStories();
+
+
+                                    } catch (
+                                        error
+                                    ) {
+
+                                        console.error(
+                                            error
+                                        );
+
+
+                                        alert(
+                                            "Unable to delete story."
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading stories:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <div class="story-form-box">
+
+                        <h2>
+                            Unable to load stories
+                        </h2>
+
+                        <p>
+                            Please refresh the page and try again.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        // =========================
+        // LOGOUT
+        // =========================
+
+        document
+            .getElementById(
+                "logoutBtn"
+            )
+            .addEventListener(
+                "click",
+                async () => {
+
+                    await signOut(auth);
+
+                    window.location.href =
+                        "index.html";
+
+                }
+            );
+
+    </script>
+
+
+</body>
+
+</html>

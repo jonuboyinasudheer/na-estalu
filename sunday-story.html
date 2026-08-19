@@ -2,15 +2,21 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>The Last Letter | Na Estalu</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sunday Stories | Na Estalu</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
+
 <body>
+
 
     <!-- Navigation -->
 
@@ -21,81 +27,273 @@
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="stories.html">Stories</a></li>
-            <li><a href="#">Love Stories</a></li>
-            <li><a href="#">About</a></li>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="stories.html">
+                    Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="love-stories.html">
+                    Love Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
         </ul>
 
     </nav>
 
 
-    <!-- Story -->
+    <!-- Sunday Stories Header -->
 
-    <article class="story-page">
+    <section class="stories-header">
 
-        <p class="section-label">SUNDAY STORY</p>
-
-        <h1>The Last Letter</h1>
-
-        <p class="story-date">
-            Published on August 23, 2026
+        <p class="section-label">
+            NA ESTALU
         </p>
 
+        <h1>
+            Sunday Stories
+        </h1>
 
-        <div class="story-content">
+        <p>
+            A new story to read every Sunday.
+        </p>
+
+    </section>
+
+
+    <!-- Sunday Stories -->
+
+    <section class="stories-section">
+
+        <h2>
+            This Sunday's Stories
+        </h2>
+
+
+        <div
+            class="stories-grid"
+            id="sundayStoriesContainer"
+        >
 
             <p>
-                Some letters are written to be read immediately.
-                Others wait patiently for the right moment.
-            </p>
-
-            <p>
-                Years had passed since the letter was written,
-                but the words inside it had never changed.
-            </p>
-
-            <p>
-                One quiet Sunday morning, it finally reached
-                the person it was always meant for.
-            </p>
-
-            <p>
-                And sometimes, a single letter is enough to
-                bring an entire past back to life.
+                Loading Sunday stories...
             </p>
 
         </div>
 
-
-        <!-- Navigation -->
-
-        <div class="chapter-navigation">
-
-            <a href="stories.html">← Back to Stories</a>
-
-            <span>Sunday Story</span>
-
-            <a href="index.html">Home →</a>
-
-        </div>
-
-    </article>
+    </section>
 
 
     <!-- Footer -->
 
     <footer class="footer">
 
-        <h2>Na Estalu</h2>
+        <h2>
+            Na Estalu
+        </h2>
 
-        <p>Stories that stay with you.</p>
+        <p>
+            Stories that stay with you.
+        </p>
 
         <p class="copyright">
             © 2026 Na Estalu. All rights reserved.
         </p>
 
     </footer>
+
+
+    <!-- Firebase -->
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            where,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+
+            authDomain:
+                "na-estalu.firebaseapp.com",
+
+            projectId:
+                "na-estalu",
+
+            storageBucket:
+                "na-estalu.firebasestorage.app",
+
+            messagingSenderId:
+                "790933220074",
+
+            appId:
+                "1:790933220074:web:6768a0a86547e786a78593",
+
+            measurementId:
+                "G-G94D1ZGPKK"
+
+        };
+
+
+        const app =
+            initializeApp(firebaseConfig);
+
+
+        const db =
+            getFirestore(app);
+
+
+        const container =
+            document.getElementById(
+                "sundayStoriesContainer"
+            );
+
+
+        async function loadSundayStories() {
+
+            try {
+
+                const storiesQuery = query(
+
+                    collection(db, "stories"),
+
+                    where(
+                        "category",
+                        "==",
+                        "sunday-stories"
+                    ),
+
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    )
+
+                );
+
+
+                const snapshot =
+                    await getDocs(storiesQuery);
+
+
+                container.innerHTML = "";
+
+
+                if (snapshot.empty) {
+
+                    container.innerHTML = `
+
+                        <p>
+                            No Sunday stories published yet.
+                        </p>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                snapshot.forEach((storyDocument) => {
+
+                    const story =
+                        storyDocument.data();
+
+
+                    const card =
+                        document.createElement("div");
+
+
+                    card.className =
+                        "story-card";
+
+
+                    const preview =
+                        story.content
+                            ? story.content.substring(0, 140) + "..."
+                            : "Read this beautiful Sunday story on Na Estalu.";
+
+
+                    card.innerHTML = `
+
+                        <span class="story-type">
+                            SUNDAY STORY
+                        </span>
+
+                        <h3>
+                            ${story.title || "Untitled Story"}
+                        </h3>
+
+                        <p>
+                            ${preview}
+                        </p>
+
+                        <a
+                            href="story.html?id=${storyDocument.id}"
+                        >
+                            Read Story →
+                        </a>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                });
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading Sunday stories:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <p>
+                        Unable to load Sunday stories.
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        loadSundayStories();
+
+    </script>
+
 
 </body>
 
