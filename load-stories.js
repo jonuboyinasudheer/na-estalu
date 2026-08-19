@@ -1,4 +1,4 @@
-console.log("Na Estalu stories.js is working!");
+console.log("Na Istalu stories.js is working!");
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
@@ -74,7 +74,7 @@ async function loadStories() {
                 <p>
                     ${story.content
                         ? story.content.substring(0, 120) + "..."
-                        : "Read this beautiful story on Na Estalu."
+                        : "Read this beautiful story on Na Istalu."
                     }
                 </p>
 
