@@ -7,12 +7,16 @@
 
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-          <meta name="google-site-verification" content="cUVD1JaGPFZW46kRqRuoK_f3PuNd2OvafVrU3NEpQgE" />
 
-  <title>Na Istalu | Love Stories & Stories That Stay With You</title>
+    <meta name="google-site-verification"
+          content="cUVD1JaGPFZW46kRqRuoK_f3PuNd2OvafVrU3NEpQgE">
 
-<meta name="description"
-      content="Na Istalu is a home for love stories, Sunday stories, and emotional stories that stay with you. Discover new stories and follow beautiful journeys, one chapter at a time.">
+    <title>
+        Na istalu | Love Stories & Stories That Stay With You
+    </title>
+
+    <meta name="description"
+          content="Na istalu is a home for love stories, Sunday stories, and emotional stories that stay with you. Discover new stories and follow beautiful journeys, one chapter at a time.">
 
     <link rel="stylesheet" href="style.css">
 
@@ -27,7 +31,7 @@
     <nav class="navbar">
 
         <div class="logo">
-            Na Istalu
+            Na istalu
         </div>
 
         <ul class="nav-links">
@@ -70,7 +74,7 @@
     <section class="hero">
 
         <h1>
-            Welcome to Na Istalu
+            Welcome to Na istalu
         </h1>
 
         <p>
@@ -215,7 +219,7 @@
     <footer class="footer">
 
         <h2>
-            Na Istalu
+            Na istalu
         </h2>
 
         <p>
@@ -239,7 +243,7 @@
         </div>
 
         <p class="copyright">
-            © 2026 Na Istalu. All rights reserved.
+            © 2026 Na istalu. All rights reserved.
         </p>
 
     </footer>
@@ -252,9 +256,11 @@
         import {
             initializeApp
         } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
         import {
-    getAnalytics
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+            getAnalytics
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 
 
         import {
@@ -295,13 +301,75 @@
 
 
         const app =
-    initializeApp(firebaseConfig);
+            initializeApp(firebaseConfig);
 
-const db =
-    getFirestore(app);
 
-const analytics =
-    getAnalytics(app);
+        const db =
+            getFirestore(app);
+
+
+        const analytics =
+            getAnalytics(app);
+
+
+        // =========================
+        // CLEAN STORY PREVIEW
+        // =========================
+
+        function cleanPreview(content) {
+
+            if (!content) {
+                return "";
+            }
+
+
+            // Create temporary HTML element
+
+            const tempElement =
+                document.createElement("div");
+
+
+            // Put stored content inside it
+
+            tempElement.innerHTML =
+                content;
+
+
+            // Convert HTML into plain text
+
+            let cleanText =
+                tempElement.textContent ||
+                tempElement.innerText ||
+                "";
+
+
+            // Remove HTML entities
+
+            cleanText =
+                cleanText
+                    .replace(/&nbsp;/gi, " ")
+                    .replace(/&amp;nbsp;/gi, " ")
+                    .replace(/&#160;/gi, " ")
+                    .replace(/&#xA0;/gi, " ");
+
+
+            // Remove actual non-breaking spaces
+
+            cleanText =
+                cleanText.replace(/\u00A0/g, " ");
+
+
+            // Remove extra spaces
+
+            cleanText =
+                cleanText
+                    .replace(/\s+/g, " ")
+                    .trim();
+
+
+            return cleanText;
+
+        }
 
 
         // =========================
@@ -312,24 +380,43 @@ const analytics =
 
             try {
 
-                const storiesQuery = query(
+                const storiesQuery =
+                    query(
 
-                    collection(db, "stories"),
+                        collection(
+                            db,
+                            "stories"
+                        ),
 
-                    orderBy(
-                        "createdAt",
-                        "desc"
-                    ),
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        ),
 
-                    limit(1)
+                        limit(1)
 
-                );
+                    );
+
 
                 const snapshot =
-                    await getDocs(storiesQuery);
+                    await getDocs(
+                        storiesQuery
+                    );
 
 
                 if (snapshot.empty) {
+
+                    document.getElementById(
+                        "featuredTitle"
+                    ).textContent =
+                        "No Stories Yet";
+
+
+                    document.getElementById(
+                        "featuredDescription"
+                    ).textContent =
+                        "A new story will appear here soon.";
+
 
                     return;
 
@@ -339,23 +426,37 @@ const analytics =
                 const storyDocument =
                     snapshot.docs[0];
 
+
                 const story =
                     storyDocument.data();
 
 
+                // Story title
+
                 document.getElementById(
                     "featuredTitle"
                 ).textContent =
-                    story.title || "Untitled Story";
+                    story.title ||
+                    "Untitled Story";
+
+
+                // Story preview
+
+                const preview =
+                    cleanPreview(
+                        story.content
+                    );
 
 
                 document.getElementById(
                     "featuredDescription"
                 ).textContent =
-                    story.content
-                        ? story.content.substring(0, 180) + "..."
-                        : "Read this beautiful story on Na Istalu.";
+                    preview
+                        ? preview.substring(0, 180) + "..."
+                        : "Read this beautiful story on Na istalu.";
 
+
+                // Story link
 
                 document.getElementById(
                     "featuredLink"
@@ -370,6 +471,18 @@ const analytics =
                     error
                 );
 
+
+                document.getElementById(
+                    "featuredTitle"
+                ).textContent =
+                    "Unable to load story";
+
+
+                document.getElementById(
+                    "featuredDescription"
+                ).textContent =
+                    "Please try again later.";
+
             }
 
         }
@@ -383,28 +496,34 @@ const analytics =
 
             try {
 
-                const loveQuery = query(
+                const loveQuery =
+                    query(
 
-                    collection(db, "stories"),
+                        collection(
+                            db,
+                            "stories"
+                        ),
 
-                    where(
-                        "category",
-                        "==",
-                        "love-stories"
-                    ),
+                        where(
+                            "category",
+                            "==",
+                            "love-stories"
+                        ),
 
-                    orderBy(
-                        "createdAt",
-                        "desc"
-                    ),
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        ),
 
-                    limit(1)
+                        limit(1)
 
-                );
+                    );
 
 
                 const snapshot =
-                    await getDocs(loveQuery);
+                    await getDocs(
+                        loveQuery
+                    );
 
 
                 const card =
@@ -439,8 +558,15 @@ const analytics =
                 const storyDocument =
                     snapshot.docs[0];
 
+
                 const story =
                     storyDocument.data();
+
+
+                const preview =
+                    cleanPreview(
+                        story.content
+                    );
 
 
                 card.innerHTML = `
@@ -455,8 +581,8 @@ const analytics =
 
                     <p>
                         ${
-                            story.content
-                                ? story.content.substring(0, 140) + "..."
+                            preview
+                                ? preview.substring(0, 140) + "..."
                                 : "Read this beautiful love story."
                         }
                     </p>
@@ -491,28 +617,34 @@ const analytics =
 
             try {
 
-                const sundayQuery = query(
+                const sundayQuery =
+                    query(
 
-                    collection(db, "stories"),
+                        collection(
+                            db,
+                            "stories"
+                        ),
 
-                    where(
-                        "category",
-                        "==",
-                        "sunday-stories"
-                    ),
+                        where(
+                            "category",
+                            "==",
+                            "sunday-stories"
+                        ),
 
-                    orderBy(
-                        "createdAt",
-                        "desc"
-                    ),
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        ),
 
-                    limit(1)
+                        limit(1)
 
-                );
+                    );
 
 
                 const snapshot =
-                    await getDocs(sundayQuery);
+                    await getDocs(
+                        sundayQuery
+                    );
 
 
                 const card =
@@ -543,8 +675,15 @@ const analytics =
                 const storyDocument =
                     snapshot.docs[0];
 
+
                 const story =
                     storyDocument.data();
+
+
+                const preview =
+                    cleanPreview(
+                        story.content
+                    );
 
 
                 card.innerHTML = `
@@ -555,8 +694,8 @@ const analytics =
 
                     <p>
                         ${
-                            story.content
-                                ? story.content.substring(0, 140) + "..."
+                            preview
+                                ? preview.substring(0, 140) + "..."
                                 : "Read this beautiful Sunday story."
                         }
                     </p>
@@ -574,7 +713,7 @@ const analytics =
             } catch (error) {
 
                 console.error(
-                    "Error loading Sunday story:",
+                    "Error loading Sunday Story:",
                     error
                 );
 
@@ -603,7 +742,7 @@ const analytics =
 
 
         // =========================
-        // LOAD ALL
+        // LOAD ALL STORIES
         // =========================
 
         loadFeaturedStory();

@@ -26,26 +26,138 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 
-const form = document.getElementById("editStoryForm");
+const form =
+    document.getElementById("editStoryForm");
 
-const message = document.getElementById("storyMessage");
-
-
-const titleInput = document.getElementById("storyTitle");
-
-const authorInput = document.getElementById("author");
-
-const categoryInput = document.getElementById("category");
-
-const imageInput = document.getElementById("storyImage");
-
-const contentInput = document.getElementById("storyContent");
+const message =
+    document.getElementById("storyMessage");
 
 
-const params = new URLSearchParams(window.location.search);
+const titleInput =
+    document.getElementById("storyTitle");
 
-const storyId = params.get("id");
+const authorInput =
+    document.getElementById("author");
 
+const categoryInput =
+    document.getElementById("category");
+
+const imageInput =
+    document.getElementById("storyImage");
+
+const contentInput =
+    document.getElementById("storyContent");
+
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const storyId =
+    params.get("id");
+
+
+/* =========================
+   CLEAN STORY HTML
+========================= */
+
+function cleanStoryHTML(html) {
+
+    if (!html) {
+        return "";
+    }
+
+
+    let cleaned = html;
+
+
+    /*
+        Convert old encoded spaces
+        into normal spaces.
+    */
+
+    cleaned =
+        cleaned
+            .replace(/&amp;nbsp;/gi, " ")
+            .replace(/&nbsp;/gi, " ")
+            .replace(/&#160;/gi, " ")
+            .replace(/&#xA0;/gi, " ");
+
+
+    /*
+        Remove actual non-breaking spaces.
+    */
+
+    cleaned =
+        cleaned.replace(/\u00A0/g, " ");
+
+
+    /*
+        Remove incorrect </br> tags.
+    */
+
+    cleaned =
+        cleaned.replace(/<\/br>/gi, "");
+
+
+    /*
+        Remove empty formatting tags.
+    */
+
+    cleaned =
+        cleaned.replace(
+            /<(b|strong|i|em|u)>\s*<\/\1>/gi,
+            ""
+        );
+
+
+    /*
+        Remove <b> or <strong> around
+        "తొలి చినుకు" if the user has
+        removed the bold formatting.
+
+        This also handles:
+        <b>తొలి చినుకు</b>
+        <strong>తొలి చినుకు</strong>
+    */
+
+    cleaned =
+        cleaned.replace(
+            /<(b|strong)>\s*తొలి\s*చినుకు\s*<\/\1>/gi,
+            "తొలి చినుకు"
+        );
+
+
+    /*
+        Remove unnecessary spaces
+        around <br>.
+    */
+
+    cleaned =
+        cleaned.replace(
+            /\s*<br\s*\/?>\s*/gi,
+            "<br>"
+        );
+
+
+    /*
+        Remove excessive consecutive <br> tags.
+    */
+
+    cleaned =
+        cleaned.replace(
+            /(<br>){3,}/gi,
+            "<br><br>"
+        );
+
+
+    return cleaned.trim();
+
+}
+
+
+/* =========================
+   LOAD STORY
+========================= */
 
 async function loadStory() {
 
@@ -53,7 +165,8 @@ async function loadStory() {
 
         message.style.color = "red";
 
-        message.textContent = "No story selected.";
+        message.textContent =
+            "No story selected.";
 
         form.style.display = "none";
 
@@ -91,6 +204,10 @@ async function loadStory() {
             storySnapshot.data();
 
 
+        /* =========================
+           LOAD NORMAL FIELDS
+        ========================= */
+
         titleInput.value =
             story.title || "";
 
@@ -103,8 +220,19 @@ async function loadStory() {
         imageInput.value =
             story.imageUrl || "";
 
-        contentInput.value =
-            story.content || "";
+
+        /* =========================
+           LOAD STORY CONTENT
+        ========================= */
+
+        const cleanedContent =
+            cleanStoryHTML(
+                story.content || ""
+            );
+
+
+        contentInput.innerHTML =
+            cleanedContent;
 
 
     } catch (error) {
@@ -121,61 +249,115 @@ async function loadStory() {
 }
 
 
-form.addEventListener("submit", async function (event) {
+/* =========================
+   UPDATE STORY
+========================= */
 
-    event.preventDefault();
+form.addEventListener(
+    "submit",
+    async function (event) {
 
-
-    try {
-
-        await updateDoc(
-
-            doc(
-                db,
-                "stories",
-                storyId
-            ),
-
-            {
-
-                title:
-                    titleInput.value.trim(),
-
-                author:
-                    authorInput.value.trim(),
-
-                category:
-                    categoryInput.value,
-
-                imageUrl:
-                    imageInput.value.trim(),
-
-                content:
-                    contentInput.value.trim()
-
-            }
-
-        );
+        event.preventDefault();
 
 
-        message.style.color = "green";
+        if (!storyId) {
 
-        message.textContent =
-            "Story updated successfully! 🎉";
+            message.style.color = "red";
+
+            message.textContent =
+                "No story selected.";
+
+            return;
+        }
 
 
-    } catch (error) {
+        try {
 
-        console.error(error);
+            /*
+                Get the current editor HTML.
+            */
 
-        message.style.color = "red";
+            let storyContent =
+                contentInput.innerHTML.trim();
 
-        message.textContent =
-            "Failed to update story.";
+
+            /*
+                Clean the HTML before saving.
+            */
+
+            storyContent =
+                cleanStoryHTML(
+                    storyContent
+                );
+
+
+            /*
+                Put the cleaned content
+                back into the editor.
+            */
+
+            contentInput.innerHTML =
+                storyContent;
+
+
+            /*
+                Save the cleaned content
+                to Firebase.
+            */
+
+            await updateDoc(
+
+                doc(
+                    db,
+                    "stories",
+                    storyId
+                ),
+
+                {
+
+                    title:
+                        titleInput.value.trim(),
+
+                    author:
+                        authorInput.value.trim(),
+
+                    category:
+                        categoryInput.value,
+
+                    imageUrl:
+                        imageInput.value.trim(),
+
+                    content:
+                        storyContent
+
+                }
+
+            );
+
+
+            message.style.color = "green";
+
+            message.textContent =
+                "Story updated successfully! 🎉";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.style.color = "red";
+
+            message.textContent =
+                "Failed to update story.";
+
+        }
 
     }
+);
 
-});
 
+/* =========================
+   START
+========================= */
 
 loadStory();

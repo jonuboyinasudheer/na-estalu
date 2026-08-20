@@ -2,66 +2,125 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Na Istalu</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Na istalu</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
     <!-- Navigation -->
+
     <nav class="navbar">
 
         <div class="logo">
-            Na Istalu
+            Na istalu
         </div>
 
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="stories.html">Stories</a></li>
-            <li><a href="love-stories.html">Love Stories</a></li>
-            <li><a href="about.html">About</a></li>
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="stories.html">
+                    Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="love-stories.html">
+                    Love Stories
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
         </ul>
 
     </nav>
 
 
-    <!-- Story -->
+    <!-- STORY -->
+
     <article class="story-page">
 
-        <p class="section-label" id="storyCategory">
-            Na Istalu
+
+        <p
+            class="section-label"
+            id="storyCategory"
+        >
+            STORY
         </p>
+
 
         <h1 id="storyTitle">
             Loading story...
         </h1>
 
-        <p class="story-date" id="storyAuthor">
-    Loading...
-</p>
 
-<p class="story-date" id="storyDate">
-    Loading...
-</p>
+        <p
+            class="story-date"
+            id="storyAuthor"
+        >
+            Loading...
+        </p>
+
+
+        <p
+            class="story-date"
+            id="storyDate"
+        >
+            Loading...
+        </p>
+
+
+        <!-- STORY IMAGE -->
 
         <img
             id="storyImage"
-            style="display: none; max-width: 100%; margin: 25px 0;"
             alt="Story Image"
+            style="
+                display:none;
+                max-width:100%;
+                width:100%;
+                margin:25px 0;
+                border-radius:10px;
+            "
         >
 
-        <div class="story-content" id="storyContent">
 
-            <p>Loading story content...</p>
+        <!-- STORY CONTENT -->
+
+        <div
+            class="story-content"
+            id="storyContent"
+        >
+
+            <p>
+                Loading story content...
+            </p>
 
         </div>
 
 
-        <!-- Chapter Navigation -->
+        <!-- NAVIGATION -->
 
         <div class="chapter-navigation">
 
@@ -70,7 +129,7 @@
             </a>
 
             <span>
-                Na Istalu
+                Na istalu
             </span>
 
             <a href="love-stories.html">
@@ -79,83 +138,197 @@
 
         </div>
 
+
     </article>
 
 
-    <!-- Footer -->
+    <!-- FOOTER -->
 
     <footer class="footer">
 
-        <h2>Na Istalu</h2>
+        <h2>
+            Na istalu
+        </h2>
 
-        <p>Stories that stay with you.</p>
+        <p>
+            Stories that stay with you.
+        </p>
 
         <p class="copyright">
-            © 2026 Na Istalu. All rights reserved.
+            © 2026 Na istalu. All rights reserved.
         </p>
 
     </footer>
 
 
-    <!-- Firebase -->
+    <!-- FIREBASE -->
+
     <script type="module">
 
-        import { initializeApp } from
-            "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import {
+            initializeApp
+        } from
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
         import {
             getFirestore,
             doc,
             getDoc
         } from
-            "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+        "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
         const firebaseConfig = {
 
-            apiKey: "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
-            authDomain: "na-estalu.firebaseapp.com",
-            projectId: "na-estalu",
-            storageBucket: "na-estalu.firebasestorage.app",
-            messagingSenderId: "790933220074",
-            appId: "1:790933220074:web:6768a0a86547e786a78593",
-            measurementId: "G-G94D1ZGPKK"
+            apiKey:
+                "AIzaSyCtU4kBKmDWQWt72tJk96EKuLvH2MLq5JU",
+
+            authDomain:
+                "na-estalu.firebaseapp.com",
+
+            projectId:
+                "na-estalu",
+
+            storageBucket:
+                "na-estalu.firebasestorage.app",
+
+            messagingSenderId:
+                "790933220074",
+
+            appId:
+                "1:790933220074:web:6768a0a86547e786a78593",
+
+            measurementId:
+                "G-G94D1ZGPKK"
 
         };
 
 
-        const app = initializeApp(firebaseConfig);
+        const app =
+            initializeApp(firebaseConfig);
 
-        const db = getFirestore(app);
+
+        const db =
+            getFirestore(app);
 
 
-        // Get story ID from URL
+        // =========================
+        // GET STORY ID
+        // =========================
 
-        const urlParams = new URLSearchParams(
-            window.location.search
-        );
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
 
-        const storyId = urlParams.get("id");
 
+        const storyId =
+            urlParams.get("id");
+
+
+        // =========================
+        // ELEMENTS
+        // =========================
 
         const titleElement =
-            document.getElementById("storyTitle");
+            document.getElementById(
+                "storyTitle"
+            );
+
 
         const categoryElement =
-            document.getElementById("storyCategory");
+            document.getElementById(
+                "storyCategory"
+            );
+
 
         const authorElement =
-    document.getElementById("storyAuthor");
+            document.getElementById(
+                "storyAuthor"
+            );
 
-const dateElement =
-    document.getElementById("storyDate");
 
-const contentElement =
-    document.getElementById("storyContent");
+        const dateElement =
+            document.getElementById(
+                "storyDate"
+            );
+
+
+        const contentElement =
+            document.getElementById(
+                "storyContent"
+            );
+
 
         const imageElement =
-            document.getElementById("storyImage");
+            document.getElementById(
+                "storyImage"
+            );
 
+
+        // =========================
+        // CLEAN STORY CONTENT
+        // =========================
+
+        function cleanStoryContent(content) {
+
+            if (!content) {
+                return "";
+            }
+
+
+            let cleaned = content;
+
+
+            // Remove incorrect closing </br>
+
+            cleaned =
+                cleaned.replace(
+                    /<\/br>/gi,
+                    ""
+                );
+
+
+            // Remove encoded spaces
+
+            cleaned =
+                cleaned
+                    .replace(
+                        /&amp;nbsp;/gi,
+                        " "
+                    )
+                    .replace(
+                        /&nbsp;/gi,
+                        " "
+                    )
+                    .replace(
+                        /&#160;/gi,
+                        " "
+                    )
+                    .replace(
+                        /&#xA0;/gi,
+                        " "
+                    );
+
+
+            // Remove actual non-breaking spaces
+
+            cleaned =
+                cleaned.replace(
+                    /\u00A0/g,
+                    " "
+                );
+
+
+            return cleaned;
+
+        }
+
+
+        // =========================
+        // LOAD STORY
+        // =========================
 
         async function loadStory() {
 
@@ -164,7 +337,11 @@ const contentElement =
                 titleElement.textContent =
                     "Story not found";
 
-                authorElement.textContent = "";
+                authorElement.textContent =
+                    "";
+
+                dateElement.textContent =
+                    "";
 
                 contentElement.innerHTML =
                     "<p>No story was selected.</p>";
@@ -176,19 +353,39 @@ const contentElement =
 
             try {
 
+
+                // =========================
+                // GET STORY FROM FIREBASE
+                // =========================
+
                 const storyRef =
-                    doc(db, "stories", storyId);
+                    doc(
+                        db,
+                        "stories",
+                        storyId
+                    );
+
 
                 const storySnapshot =
-                    await getDoc(storyRef);
+                    await getDoc(
+                        storyRef
+                    );
 
+
+                // =========================
+                // STORY NOT FOUND
+                // =========================
 
                 if (!storySnapshot.exists()) {
 
                     titleElement.textContent =
                         "Story not found";
 
-                    authorElement.textContent = "";
+                    authorElement.textContent =
+                        "";
+
+                    dateElement.textContent =
+                        "";
 
                     contentElement.innerHTML =
                         "<p>This story could not be found.</p>";
@@ -202,58 +399,120 @@ const contentElement =
                     storySnapshot.data();
 
 
-                // Title
+                // =========================
+                // TITLE
+                // =========================
 
                 titleElement.textContent =
-                    story.title || "Untitled Story";
+                    story.title ||
+                    "Untitled Story";
 
 
-                // Category
+                // =========================
+                // CATEGORY
+                // =========================
 
-                let categoryName = story.category || "story";
-
-if (categoryName === "love-stories") {
-    categoryName = "LOVE STORY";
-} else if (categoryName === "sunday-stories") {
-    categoryName = "SUNDAY STORY";
-} else {
-    categoryName = "STORY";
-}
-
-categoryElement.textContent = categoryName;
+                let category =
+                    story.category ||
+                    "stories";
 
 
-                // Author
+                if (
+                    category ===
+                    "love-stories"
+                ) {
 
-                authorElement.textContent =
-                    story.author
-                        ? `Written by ${story.author}`
-                        : "Na Istalu";
-if (story.createdAt) {
+                    category =
+                        "LOVE STORY";
 
-    const date =
-        story.createdAt.toDate();
+                }
 
-    const formattedDate =
-        date.toLocaleDateString("en-IN", {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-        });
+                else if (
+                    category ===
+                    "sunday-stories"
+                ) {
 
-    dateElement.textContent =
-        `Published on ${formattedDate}`;
+                    category =
+                        "SUNDAY STORY";
 
-} else {
+                }
 
-    dateElement.textContent =
-        "";
+                else {
 
-}
+                    category =
+                        "STORY";
 
-                // Image
+                }
 
-                if (story.imageUrl) {
+
+                categoryElement.textContent =
+                    category;
+
+
+                // =========================
+                // AUTHOR
+                // =========================
+
+                if (story.author) {
+
+                    authorElement.textContent =
+                        `Written by ${story.author}`;
+
+                }
+
+                else {
+
+                    authorElement.textContent =
+                        "Na istalu";
+
+                }
+
+
+                // =========================
+                // DATE
+                // =========================
+
+                if (
+                    story.createdAt &&
+                    story.createdAt.toDate
+                ) {
+
+                    const date =
+                        story.createdAt.toDate();
+
+
+                    const formattedDate =
+                        date.toLocaleDateString(
+                            "en-IN",
+                            {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric"
+                            }
+                        );
+
+
+                    dateElement.textContent =
+                        `Published on ${formattedDate}`;
+
+                }
+
+                else {
+
+                    dateElement.textContent =
+                        "";
+
+                }
+
+
+                // =========================
+                // STORY IMAGE
+                // =========================
+
+                if (
+                    story.imageUrl &&
+                    story.imageUrl.trim() !== ""
+                ) {
 
                     imageElement.src =
                         story.imageUrl;
@@ -263,64 +522,84 @@ if (story.createdAt) {
 
                 }
 
+                else {
 
-                // Content
+                    imageElement.style.display =
+                        "none";
 
-                contentElement.innerHTML = "";
-
-
-                const paragraphs =
-                    (story.content || "").split(/\n+/);
+                }
 
 
-                paragraphs.forEach(text => {
+                // =========================
+                // STORY CONTENT
+                // =========================
 
-                    if (text.trim()) {
-
-                        const paragraph =
-                            document.createElement("p");
-
-                        paragraph.textContent =
-                            text.trim();
-
-                        contentElement.appendChild(
-                            paragraph
-                        );
-
-                    }
-
-                });
+                const content =
+                    cleanStoryContent(
+                        story.content || ""
+                    );
 
 
-                // Page title
+                // IMPORTANT:
+                // Display the stored HTML directly.
+                // This allows <br>, <b>, <i>, etc.
+                // to render properly.
+
+                contentElement.innerHTML =
+                    content;
+
+
+                // =========================
+                // PAGE TITLE
+                // =========================
 
                 document.title =
-                    `${story.title || "Story"} | Na Istalu`;
+                    `${story.title || "Story"} | Na istalu`;
+
+            }
 
 
-            } catch (error) {
+            catch (error) {
 
                 console.error(
                     "Error loading story:",
                     error
                 );
 
+
                 titleElement.textContent =
                     "Unable to load story";
 
-                authorElement.textContent = "";
+
+                authorElement.textContent =
+                    "";
+
+
+                dateElement.textContent =
+                    "";
+
 
                 contentElement.innerHTML =
-                    "<p>Something went wrong while loading this story.</p>";
+                    `
+                    <p>
+                        Something went wrong while
+                        loading this story.
+                    </p>
+                    `;
 
             }
 
         }
 
 
+        // =========================
+        // START
+        // =========================
+
         loadStory();
 
     </script>
+
 
 </body>
 

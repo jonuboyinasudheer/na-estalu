@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Manage Stories | Na Istalu</title>
+    <title>Manage Stories | Na istalu</title>
 
     <link rel="stylesheet" href="admin.css">
 
@@ -28,7 +28,7 @@
             <div>
 
                 <h1>
-                    Na Istalu
+                    Na istalu
                 </h1>
 
                 <p>
@@ -307,17 +307,16 @@
                                 ${
                                     story.author
                                         ? "Written by " + story.author
-                                        : "Na Istalu"
+                                        : "Na istalu"
                                 }
                             </p>
 
-                            <p>
-                                ${
-                                    story.content
-                                        ? story.content.substring(0, 180) + "..."
-                                        : "No content"
-                                }
-                            </p>
+                        
+        story.content
+            ? story.content.replace(/<[^>]*>/g, "").substring(0, 180) + "..."
+            : "No content"
+    }
+</p>
 
                             <div
                                 style="

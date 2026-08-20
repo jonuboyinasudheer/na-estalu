@@ -605,7 +605,7 @@ body {
     line-height: 1.7;
     margin-bottom: 25px;
 }
-/* Na Istalu Brand */
+/* Na istalu Brand */
 
 .logo {
     font-family: Georgia, serif;
@@ -686,4 +686,17 @@ body {
     font-size: 28px;
     font-weight: bold;
     color: #e91e63;
+}
+.story-content {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.story-content br {
+    display: block;
+}
+
+.story-content b {
+    font-weight: bold;
 }

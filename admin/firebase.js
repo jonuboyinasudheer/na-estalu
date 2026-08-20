@@ -46,9 +46,8 @@ if (storyForm) {
         const imageUrl =
             document.getElementById("storyImage").value.trim();
 
-        const content =
-            document.getElementById("storyContent").value.trim();
-
+       const content =
+    document.getElementById("storyContent").value.trim();
         const message =
             document.getElementById("storyMessage");
 
